@@ -4,7 +4,8 @@ title-slide-attributes:
   data-background-image: "chaya.png"
   data-background-opacity: "0.2"
   data-background-size: "100% 100%"
-subtitle: <green>Spring Topology, 2026</green>
+  data-background-position: "center top"
+subtitle: <green>AMS Sectional, Savannah, 2026</green>
 author: "<b>Sushovan Majhi</b>, *George Washington University, DC*"
 fig-cap-location: bottom
 callout-icon: false
@@ -18,7 +19,7 @@ format:
         css: style.css
         navigation-mode: vertical
 bibliography: references.bib
-editor: 
+editor:
   render-on-save: true
 html-math-method: mathml
 ---
@@ -145,7 +146,7 @@ $$ for some $0<\xi<1/14$. Then, $\mathcal R_\beta(S)\simeq M$.
 
 :::
 
-- $CAT(\kappa)$ Spaces [<code>ArXiv:2406.04259</code>, @2406.04259]
+- For $CAT(\kappa)$ Spaces [@2406.04259]
 
 
 # <green>Geometric</green> Reconstruction {background-image="chaya.png" background-opacity="0.05" background-size="100% 100%"}
@@ -196,6 +197,20 @@ $$ for some $0<\xi<1/14$. Then, $\mathcal R_\beta(S)\simeq M$.
 ![](sh-2.png){width=60% fig-align=center}
 
 
+## Shadow in Limits {.smaller style="font-size:0.6em"}
+
+- The shadow projection $p\colon\mathcal R_\beta(S)\to\mathcal S(\mathcal R_\beta(S))$ may have <red>singularities</red>---resolved only for $N\leq 3$
+- Idea from <green>shape theory</green>: study the *system* $\left\{\mathcal \pi_k(\mathcal R_\beta(S)) : \beta>0,\; S\subset X\right\}$ using <green>inverse limits</green>
+
+. . .
+
+::: {.callout-tip icon="false"}
+## Geometric Latschev in Limits [@Kawamura2026-ob]
+- As $\beta\to0$, the inverse limit group of direct limits $\lim_{S\subset X}\pi_k(\mathcal S(\mathcal R_\beta(S)))$ is isomorphic to $\pi_k(\mathcal R_\beta(X)).$
+:::
+
+- This is a Geometric Latschev's theorem, but very much qualitative!
+- <red>Q</red>: When does the limit stabilize?
 
 ## A Geometric Latschev Theorem {.smaller}
 
