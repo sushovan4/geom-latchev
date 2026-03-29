@@ -196,22 +196,6 @@ $$ for some $0<\xi<1/14$. Then, $\mathcal R_\beta(S)\simeq M$.
 
 ![](sh-2.png){width=60% fig-align=center}
 
-
-## Shadow in Limits {.smaller style="font-size:0.6em"}
-
-- The shadow projection $p\colon\mathcal R_\beta(S)\to\mathcal S(\mathcal R_\beta(S))$ may have <red>singularities</red>---resolved only for $N\leq 3$
-- Idea from <green>shape theory</green>: study the *system* $\left\{\mathcal \pi_k(\mathcal R_\beta(S)) : \beta>0,\; S\subset X\right\}$ using <green>inverse limits</green>
-
-. . .
-
-::: {.callout-tip icon="false"}
-## Geometric Latschev in Limits [@Kawamura2026-ob]
-- As $\beta\to0$, the inverse limit group of direct limits $\lim_{S\subset X}\pi_k(\mathcal S(\mathcal R_\beta(S)))$ is isomorphic to $\pi_k(\mathcal R_\beta(X)).$
-:::
-
-- This is a Geometric Latschev's theorem, but very much qualitative!
-- <red>Q</red>: When does the limit stabilize?
-
 ## A Geometric Latschev Theorem {.smaller}
 
 ::::{.callout-tip icon="false" .nonincremental style="font-size: 1em"}
@@ -227,6 +211,23 @@ Moreover, <green>$d_H(\mathcal S(\mathcal R_\beta^\varepsilon(S)), G)<\left(\bet
 - <green>$\mathcal R^\epsilon_\beta(S)$</green>: Non-Euclidean Vietoris--Rips
 - <green>$\Theta\in(0,1)$</green>: depends on the angles between tangents of edges at the graph vertices
 - <green>$\Delta(G)$</green>: *Shadow radius* positive number for graphs with smooth edges
+
+## Shadow in Limits {.smaller style="font-size:0.6em"}
+
+- The shadow projection $p\colon\mathcal R_\beta(S)\to\mathcal S(\mathcal R_\beta(S))$ may have <red>singularities</red>---resolved only for $N\leq 3$
+- Idea from <green>shape theory</green>: study the *system* $\left\{\mathcal \pi_k(\mathcal R_\beta(S)) : \beta>0,\; S\subset X\right\}$ using <green>inverse limits</green>
+
+. . .
+
+::: {.callout-tip icon="false"}
+## Geometric Latschev in Limits [@Kawamura2026-ob]
+- $X\subset\mathbb R^N$ an *ANR*
+- For each $\beta>0$, consider the direct limit group: $\lim_{S\subset X, \text{finite}}\pi_k(\mathcal S(\mathcal R_\beta(S)))$
+- As $\beta\to0$, the inverse limit group of these direct limits is isomorphic to $\pi_k(\mathcal R_\beta(X))$.
+:::
+
+- This is a Geometric Latschev's theorem, but very much qualitative!
+- <red>Q</red>: When does the limit stabilize?
 
 ## A Sufficient Condition for Faithfulness {.smaller}
 
