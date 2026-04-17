@@ -264,6 +264,5 @@ Moreover, the Hausdorff distance $d_{\mathrm H}(\mathcal S(\mathcal R_\beta(S)),
 
 - Is the <green>apex condition</green> also necessary for shadow project to be a homotopy eqivalance?
 
-## {background-iframe="https://arxiv.org/abs/2604.15262"}
 
 ## References {background-image="chaya.png" background-opacity="0.1" style="font-size: 0.6em" background-size="100% 100%"}
