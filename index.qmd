@@ -5,7 +5,7 @@ title-slide-attributes:
   data-background-opacity: "0.2"
   data-background-size: "100% 100%"
   data-background-position: "center top"
-subtitle: <green>AMS Sectional, Savannah, 2026</green>
+subtitle: <green>Applied Topology in Albany (ATiA) Seminar</green>
 author: "<b>Sushovan Majhi</b>, *George Washington University, DC*"
 fig-cap-location: bottom
 callout-icon: false
@@ -254,14 +254,16 @@ Moreover, the Hausdorff distance $d_{\mathrm H}(\mathcal S(\mathcal R_\beta(S)),
 :::
 
 - <green>No separation needed</green>: Delaunay-based methods require a strong separation condition for $S$
-  
 
-# Future Directions 
+- <green>Application in molecular biology</green>: Classify entangled DNA packings from finite samples 
+
+# Future Directions
 
 - <red>Noisy</red>: What about $S$ being *near* $M$? We solved for $N=2$
 - <red>General manifolds</red>: What about higher-dimensional manifolds? 
 
-- Is the apex condition also necessary for shadow project to be a homotopy eqivalance?
-  
+- Is the <green>apex condition</green> also necessary for shadow project to be a homotopy eqivalance?
+
+## {background-iframe="https://arxiv.org/abs/2604.15262"}
 
 ## References {background-image="chaya.png" background-opacity="0.1" style="font-size: 0.6em" background-size="100% 100%"}
