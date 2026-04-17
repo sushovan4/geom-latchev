@@ -26,6 +26,214 @@ html-math-method: mathml
 
 # Finite Reconstruction Problem {background-image="chaya.png" background-opacity="0.05" background-size="100% 100%"}
 
+## The Talk in a Nutshell {style="font-size: 0.7em"}
+
+```{ojs}
+//| panel: sidebar
+viewof n = Inputs.range([0, 500], { label: "Sample Size", value: 150, step: 1 })
+viewof tol = Inputs.range([0, 100], { label: "Noise", value: 20, step: 1 })
+viewof scaleB = Inputs.range([0, 150], {
+  step: 0.5,
+  value: 0,
+  label: tex`r_{\mathcal S}`
+});
+viewof scaleA = Inputs.range([0, 150], {
+  step: 0.5,
+  value: 0,
+  label: tex`r_{\mathcal G}`
+})
+viewof scale = Inputs.range([0, 300], {
+  step: 1,
+  value: 0,
+  label: tex`\beta`
+})
+viewof showShape = Inputs.toggle({ label: tex`{\mathcal G}`, value: false })
+viewof showSample = Inputs.toggle({ label: tex`{\mathcal S}`, value: false })
+viewof showRips = Inputs.toggle({ label: 'Euclidean Vietoris–Rips', value: false })
+```
+
+```{ojs}
+import { slider } from "@jashkenas/inputs"
+{
+  const svg = d3
+    .create("svg")
+    .attr("class", "canvas")
+    .style("margin-left", "15px")
+    .style("width", "100%")
+    .style("height", height);
+
+  if(showShape) {
+    svg
+      .append("path")
+      .attr("class", "shape")
+      .attr("stroke", "#3be57f")
+      .attr("stroke-width", "2")
+      .attr("fill", "none")
+      .attr("d", d3.line()(X));
+  }
+
+  if(showSample) {
+    svg
+      .selectAll(".vertex")
+      .data(S)
+      .join("circle")
+      .attr("class", "vertex")
+      .attr("fill", "#bb473f")
+      .attr("cx", (d) => d[0])
+      .attr("cy", (d) => d[1])
+      .attr("r", "3px");
+  }
+  if(scaleA > 0 || scaleB > 0)
+    drawBalls(svg, X, S, scaleA, scaleB); 
+  if(showRips)
+    drawRips(svg, rips(S, scale));
+  
+  return svg.node();
+}
+rips = function (sample, scale) {
+	const simplices=[d3.range(sample.length),[],[]];
+	const adjRips = new Array(sample.length);
+	const dEps = new Array(sample.length);
+	
+	for(var i = 0; i < adjRips.length; i++) {
+	    adjRips[i]= new Array(sample.length);
+	    
+	    for(var j = 0; j < adjRips.length; j++) {
+		  var d = dist2(sample[i],sample[j]); 
+		  if( d < scale) {
+		    adjRips[i][j]=d;
+		    if(i<j)
+    	 		simplices[1].push([i,j]);
+		  }
+		  else
+		    adjRips[i][j]=0;
+	    }
+	}
+	combinations(simplices[0],3).forEach(function(d) {
+    	    if ( diam2( d3.permute(sample,d) ) < scale )
+    		simplices[2].push(d);
+  });
+  return simplices;
+}
+
+X = lissajous(center, 0, center[0] - 70, center[1] - 50, 3, 2, 2000)
+S = lissajous(center, tol, center[0] - 70, center[1] - 50, 3, 2, n)
+center = [height / 2 + 100, height / 2]
+height = 500
+lissajous = function (
+  center,
+  tol = 5,
+  a = center[0] - 100,
+  b = center[1] - 50,
+  kx = 3,
+  ky = 2,
+  n = 300
+) {
+  var t = d3.range(n).map(function (d) {
+    return (2 * Math.PI * d) / (n - 1);
+  });
+  var points = [];
+  for (var i = 0; i < n; i++) {
+    points[i] = [
+      center[0] +
+        a * Math.cos(kx * t[i]) +
+        d3.randomUniform(tol)() * Math.cos(d3.randomUniform(2 * Math.PI)()),
+      center[1] +
+        b * Math.sin(ky * t[i]) +
+        d3.randomUniform(tol)() * Math.sin(d3.randomUniform(2 * Math.PI)())
+    ];
+  }
+  return points;
+}
+function dist2(a, b) {
+  if (a.length != b.length || a.length != 2) return null;
+  return Math.sqrt(Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2));
+}
+function diam2(points) {
+  var diam = 0;
+  points.forEach(function (p) {
+    points.forEach(function (q) {
+      diam = Math.max(diam, dist2(p, q));
+    });
+  });
+  return diam;
+}
+function combinations(set, k) {
+    var i, j, combs, head, tailcombs;
+    if (k > set.length || k <= 0) {
+	return [];
+    }
+    if (k == set.length) {
+	return [set];
+    }
+    if (k == 1) {
+	combs = [];
+	for (i = 0; i < set.length; i++) {
+	    combs.push([set[i]]);
+	}
+	return combs;
+    }
+    combs = [];
+    for (i = 0; i < set.length - k + 1; i++) {
+	head = set.slice(i, i + 1);
+	tailcombs = combinations(set.slice(i + 1), k - 1);
+	for (j = 0; j < tailcombs.length; j++) {
+	    combs.push(head.concat(tailcombs[j]));
+	}
+    }
+    return combs
+}
+drawBalls = function (svg, X, S, scaleA, scaleB) {
+  svg
+    .selectAll(".A-ball")
+    .data(X)
+    .join("circle")
+    .attr("class", "A-ball")
+    .attr("cx", (d) => d[0])
+    .attr("cy", (d) => d[1])
+    .attr("r", scaleA)
+    .attr("fill", "#3be57f")
+    .attr("stroke", "none")
+    .attr("opacity", "0.1");
+  svg
+    .selectAll(".B-ball")
+    .data(S)
+    .join("circle")
+    .attr("class", "B-ball")
+    .attr("cx", (d) => d[0])
+    .attr("cy", (d) => d[1])
+    .attr("r", scaleB)
+    .attr("fill", "#bb473f")
+    .attr("stroke", "none")
+    .attr("opacity", "0.1");
+  
+  return svg;
+}
+drawRips = function (svg, simplices) {
+
+  if (simplices[2]) {
+    svg.selectAll(".triangle")
+      .data(simplices[2])
+      .join("path")
+      .attr("class", "triangle")
+      .attr("d", (d) => d3.line()(d.map((v) => S[v])))
+      .attr("fill", "#bb473f")
+      .attr("stroke", "none")
+      .attr("opacity", "0.1");
+  }
+  if (simplices[1]) {
+    svg.selectAll(".edge")
+      .data(simplices[1])
+      .join("path")
+      .attr("class", "edge")
+      .attr("d", (d) => d3.line()(d.map((v) => S[v])))
+      .attr("stroke", "#bb473f").attr("stroke-width", "1.5");
+  }
+  return svg;
+}
+```
+
+## 
 
 - <green>**Shape**</green>: A *Shape* is modeled as a metric space $(X,d_X)$
   - <green>ex</green>: manifolds, graphs, general stratified spaces
